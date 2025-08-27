@@ -1,0 +1,35 @@
+<h1>Genres</h1>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each genres.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+       
+        {{#each genres}}
+        <tr>
+            <td>{{this.id_genre}}</td>
+            <td>{{this.description}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! Create form}}
+
+<h2>Create a Genre</h2>
+<form class='cuForm' id='create_genre_form' method='POST' action='/Genres/create'>
+    <label for='create_genre_description'>Description: </label>
+    <input type='text' name='create_genre_description' id='create_genre_description' required />
+
+    <input type='submit' value="Create genre"/>
+</form>       

@@ -1,0 +1,82 @@
+<h1>Check Outs</h1>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each check_outs.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each check_outs}}
+        <tr>
+            <td>{{this.id_check_out}}</td>       
+            <td>{{formatDate this.dateCheckedOut}}</td>
+            <td>{{formatDate this.dueDate}}</td>
+            <td>{{this.customerName}}</td>
+            <td>{{this.mediaTitle}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! CREATE table }}
+
+<h2>Create a Check Out</h2>
+<form class='cuForm' id='create_check_out' method='POST' action='/Check_Outs/create'>
+    <label for='create_check_out_customer_name'>Customer:</label>
+    <select name='create_check_out_customer_name' id='create_check_out_customer_name' required>
+        <option value='' disabled selected>Select Customer:</option>
+        {{#each customers_names}}
+        <option value='{{this.customerId}}'>
+            {{this.firstName}} {{this.lastName}}
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='create_media_check_out'>Media:</label>
+    <select name='create_media_check_out' id='create_media_check_out' required>
+        <option value='' disabled selected>Select Media:</option>
+        {{#each media_names}}
+        <option value='{{this.id_media}}'>
+            {{this.title}} - {{this.creator}}
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='create_check_out_date'>Date checked out:</label>
+    <input type='date' name='create_check_out_date' id='create_check_out_date' required />
+
+    <label for='create_check_out_due_date'>Due date:</label>
+    <input type='date' name='create_check_out_due_date' id='create_check_out_due_date' required />
+
+    <input type='submit' value='Create Check Out' />
+</form>
+<script>
+    
+document.getElementById('create_check_out').addEventListener('submit', function(event) {
+    const checkOutDate = new Date(document.getElementById('create_check_out_date').value);
+    const dueDate = new Date(document.getElementById('create_check_out_due_date').value);
+    const today = new Date();
+    
+    // Remove time portion for accurate date comparison
+    today.setHours(0, 0, 0, 0);
+    checkOutDate.setHours(0, 0, 0, 0);
+    dueDate.setHours(0, 0, 0, 0);
+
+    if (checkOutDate > today) {
+        alert('Check-out date cannot be in the future.');
+        event.preventDefault();
+    } else if (dueDate <= checkOutDate) {
+        alert('Due date must be after the check-out date.');
+        event.preventDefault();
+    }
+});
+</script>

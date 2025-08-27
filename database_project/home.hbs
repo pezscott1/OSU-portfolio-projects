@@ -1,0 +1,21 @@
+<h1>Library</h1>
+<div class="homepageDescription">
+    <p>Welcome to the Digital and Physical Library project, by Scott Dispensa and Tyler Grzymalski!</p>
+</div>
+
+
+
+
+<form id="resetForm" action="/reset" method="POST" style="display: none;"></form>
+<button onclick="confirmReset()">Reset Database</button>
+
+<script> // confirm reset syntax was borrowed from Copilot
+function confirmReset() {
+    const confirmed = confirm("Are you sure you want to reset the database? This action cannot be undone.");
+    if (confirmed) {
+        document.getElementById('resetForm').submit();
+        }
+    }
+</script>
+
+

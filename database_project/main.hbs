@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Team 11 Digital and Physical Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        Navigation: 
+        <a href="/">Home</a>
+        <a href="/Customers">Customers</a>
+        <a href="/Media">Media</a>
+        <a href="/Check_Outs">Check Outs</a>
+        <a href="/Genres">Genres</a>
+        <a href="/Media_Has_Genres">Media Genres</a>
+        
+<a href="#" onclick="confirmReset(event)">Reset Database</a>
+
+<script>
+function confirmReset(event) { // Confirm reset script from Copilot  
+    event.preventDefault(); // Prevent default link behavior
+    const confirmed = confirm("Are you sure you want to reset the database? This action cannot be undone.");
+    if (confirmed) {
+    fetch('/reset', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            location.reload(); // Reload the current page
+        } else {
+            alert("Reset failed.");
+        }
+    })
+     .catch(error => {
+        console.error("Error:", error);
+        alert("An error occurred.");
+        });
+        }
+    }
+    </script>
+    {{{body}}}
+
+</body>
+</html>
